@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ultimate Prank Website</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Rubik', sans-serif;
+      background: #0f0f1e;
+      color: #e0e0e0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 500px;
+      padding: 40px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #1a1a2e, #161622);
+      box-shadow:
+        0 4px 15px rgba(255, 0, 85, 0.4),
+        inset 0 0 10px rgba(255, 0, 85, 0.6);
+      position: relative;
+      animation: pulseBG 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseBG {
+      0%, 100% {
+        box-shadow:
+          0 4px 15px rgba(255, 0, 85, 0.4),
+          inset 0 0 10px rgba(255, 0, 85, 0.6);
+      }
+      50% {
+        box-shadow:
+          0 8px 25px rgba(255, 0, 85, 0.8),
+          inset 0 0 25px rgba(255, 0, 85, 1);
+      }
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ff0055;
+    }
+
+    p {
+      font-size: 1.25rem;
+      color: #bbb;
+      margin-bottom: 30px;
+    }
+
+    .loading-text {
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+      color: #ff3399;
+      animation: blink 1.5s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes blink {
+      0%, 100% {opacity: 1;}
+      50% {opacity: 0.3;}
+    }
+
+    .glitch {
+      position: relative;
+      color: #ff3399;
+      font-weight: 900;
+      font-size: 2.5rem;
+      animation: glitch-anim 1.5s infinite;
+      text-transform: uppercase;
+    }
+
+    @keyframes glitch-anim {
+      0%, 100% {
+        text-shadow:
+          2px 0 #ff0055,
+          -2px 0 #00fff7;
+      }
+      50% {
+        text-shadow:
+          -2px 0 #ff0055,
+          2px 0 #00fff7;
+      }
+    }
+
+    button {
+      background: #ff0055;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      color: white;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px #ff0055aa;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    button:hover {
+      background: #ff3399;
+      box-shadow: 0 0 25px #ff3399cc;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px 15px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      border: none;
+      margin-bottom: 20px;
+      outline: none;
+      box-shadow: inset 0 0 10px #ff0055cc;
+      color: #e0e0e0;
+      background: #161622;
+      user-select: text;
+    }
+
+    input[type="text"]::placeholder {
+      color: #ff77aaaa;
+    }
+
+    /* Modal styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: #1a1a2e;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow:
+        0 0 20px #ff0055cc,
+        inset 0 0 10px #ff3399cc;
+      max-width: 400px;
+      text-align: center;
+      color: #ff77aa;
+      font-weight: 600;
+      user-select: text;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-shadow: 0 0 10px #ff3399;
+    }
+
+    .modal p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      white-space: pre-line;
+    }
+
+    .modal button {
+      background: #00fff7;
+      color: #161622;
+      box-shadow: 0 0 20px #00fff7cc;
+      user-select: none;
+    }
+
+    .modal button:hover {
+      background: #33ffff;
+      box-shadow: 0 0 30px #33ffffcc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="container">
+    <h1 class="glitch">System Error</h1>
+    <p>Loading your files... Please wait.</p>
+    <div class="loading-text">LOADING...</div>
+    
+    <input type="text" id="userInput" placeholder="Enter your name for a roast!" />
+    <button id="roastBtn">Roast Me!</button>
+    <br />
+    <button id="stopBtn">Stop Loading</button>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h2 id="modalTitle">😂 Gotcha!</h2>
+      <p id="modalMessage">Your computer isn’t actually frozen. Just wanted to say hi! 👋</p>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const modal = document.getElementById('modal');
+    const stopBtn = document.getElementById('stopBtn');
+    const closeModal = document.getElementById('closeModal');
+    const roastBtn = document.getElementById('roastBtn');
+    const userInput = document.getElementById('userInput');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+
+    // Savage roast lines:
+    const roasts = [
+      name => `${name}, you bring everyone so much joy… when you leave the room.`,
+      name => `${name}, you're like a cloud. When you disappear, it's a beautiful day.`,
+      name => `${name}, if I wanted to kill myself, I’d climb your ego and jump to your IQ.`,
+      name => `${name}, your secrets are safe with me. I never even listen when you tell me them.`,
+      name => `${name}, you have something on your chin... no, the third one down.`,
+      name => `${name}, you're the reason the gene pool needs a lifeguard.`,
+      name => `${name}, you have the perfect face for radio.`,
+      name => `${name}, you are proof that even evolution takes a break sometimes.`,
+      name => `${name}, your brain is like the Bermuda Triangle — information goes in and then it’s never found again.`,
+      name => `${name}, you’re as useless as the 'ueue' in 'queue'.`,
+      name => `${name}, your family tree must be a cactus, because everyone on it is a prick.`,
+      name => `${name}, you are like a software update. Whenever you appear, I ignore you and hope for the best.`,
+      name => `${name}, your face makes onions cry.`,
+      name => `${name}, you're as sharp as a marble.`,
+      name => `${name}, I’d agree with you but then we’d both be wrong.`,
+      name => `${name}, your personality’s as exciting as watching paint dry in slow motion.`,
+      name => `${name}, you're proof that even evolution has its off days.`,
+      name => `${name}, your brain’s so small, if you had a dime for every thought you had, you’d still be broke.`,
+      name => `${name}, you are the human equivalent of a participation trophy.`,
+      name => `${name}, if ignorance is bliss, you must be the happiest person alive.`,
+      name => `${name}, you're the human version of a typo.`,
+      name => `${name}, your mind is on vacation but your mouth is working overtime.`,
+      name => `${name}, if you were any slower, you'd be moving backwards.`,
+      name => `${name}, you bring everyone so much joy — when you leave the room.`,
+    ];
+
+    function getRandomRoast(name) {
+      const index = Math.floor(Math.random() * roasts.length);
+      return roasts[index](name);
+    }
+
+    function showModal(title, message) {
+      modalTitle.textContent = title;
+      modalMessage.textContent = message;
+      modal.classList.add('active');
+    }
+
+    // Show initial prank modal on container or stop button click
+    function showPrank() {
+      showModal('😂 Gotcha!', 'Your computer isn’t actually frozen. Just wanted to say hi! 👋');
+    }
+
+    container.addEventListener('click', (e) => {
+      // Don't trigger prank if clicking inside input or buttons except stopBtn
+      if (e.target === userInput || e.target === roastBtn) return;
+      showPrank();
+    });
+
+    stopBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      showPrank();
+    });
+
+    // Roast button logic
+    roastBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const name = userInput.value.trim();
+      if (!name) {
+        alert("Come on, enter your name first! Don't be shy 😉");
+        return;
+      }
+      const roast = getRandomRoast(name);
+      showModal('🔥 Roasted!', roast);
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // Disable right click and show a funny alert
+    window.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      alert("Nope, no cheating! Just enjoy the prank 😜");
+    });
+
+    // Press Enter inside input to roast
+    userInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        roastBtn.click();
+      }
+    });
+  </script>
+
+</body>
+</html>
